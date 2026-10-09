@@ -12,7 +12,7 @@
 **Joseph Carey (Joe)** · marketing professional, photographer and videographer based in Shropshire, England.<br>
 Studying digital marketing at Aston University. I build my own websites and tools, including [josephcarey.com](https://josephcarey.com) and [Gren](https://gren.app).
 
-[josephcarey.com](https://josephcarey.com) · [LinkedIn](https://www.linkedin.com/in/joecareyuk) · [Instagram](https://www.instagram.com/ajoe) · [gren.app](https://gren.app)
+[josephcarey.com](https://josephcarey.com) · [LinkedIn](https://www.linkedin.com/in/joecareyuk) · [Instagram](https://www.instagram.com/ajoe) · [gren.app](https://gren.app) · [ORCID](https://orcid.org/0009-0008-4508-7548)
 
 <br>
 
@@ -23,8 +23,8 @@ Studying digital marketing at Aston University. I build my own websites and tool
 
 <br>
 
-### `joe@github:~$ ./contributions --last-year`
+### `joe@github:~$ ./make-it-green.sh`
 
-<img src="contrib-heatmap.svg" width="860" alt="GitHub contribution heatmap for the last year">
+<img src="green.svg" width="860" alt="Decorative grid of green squares with a shimmer rippling across it">
 
 </div>

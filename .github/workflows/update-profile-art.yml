@@ -1,4 +1,4 @@
-name: Update contribution heatmap
+name: Update contribution stats
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["scripts/fetch_contributions.py", "scripts/render_heatmap_svg.py"]
+    paths: ["scripts/fetch_contributions.py", "scripts/render_heatmap_svg.py", "scripts/render_green_svg.py"]
 
 permissions:
   contents: write
@@ -22,9 +22,10 @@ jobs:
       # standard library only: nothing to install
       - run: python scripts/fetch_contributions.py jcareydev
       - run: python scripts/render_heatmap_svg.py
+      - run: python scripts/render_green_svg.py
       - name: Commit if changed
         run: |
-          git add data/contributions.json contrib-heatmap.svg
+          git add data/contributions.json contrib-heatmap.svg green.svg
           if git diff --cached --quiet; then
             echo "No changes"
           else
