@@ -23,8 +23,8 @@ Studying digital marketing at Aston University. I build my own websites and tool
 
 <br>
 
-### `joe@github:~$ ./make-it-green.sh`
+### `joe@github:~$ ./contributions --last-year`
 
-<img src="green.svg" width="860" alt="Decorative grid of green squares with a shimmer rippling across it">
+<img src="contrib-heatmap.svg" width="860" alt="Contribution heatmap: real GitHub activity in green since joining on 27 September 2026, with the weeks before joining shimmering gold">
 
 </div>

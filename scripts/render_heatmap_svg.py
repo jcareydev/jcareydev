@@ -1,7 +1,9 @@
 """
 Draw data/contributions.json as a terminal-window contribution heatmap SVG:
-53 weeks x 7 days of rounded cells that reveal once along a diagonal, a
-legend, and a stats footer.
+53 weeks x 7 days of rounded cells, a key, and a stats footer. Days since
+joining GitHub show the real activity in GitHub's greens and reveal once
+along a diagonal; days before joining are gold with a shimmer, and the key
+says so, so the gold is never mistaken for activity.
 
     python scripts/render_heatmap_svg.py [output.svg]
 
@@ -9,6 +11,7 @@ Standard library only. STATIC=1 skips the animation.
 """
 import json
 import os
+import random
 import sys
 from datetime import date
 
@@ -32,6 +35,11 @@ MUTED = "#7d8590"
 INK = "#c9d1d9"
 ACCENT = "#f0883e"
 LEVELS = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"]
+GOLDS = ["#3b2c0b", "#5c4512", "#8a6a1c", "#c9a227", "#f2d270"]
+GOLD_TEXT = "#d4a72c"
+
+JOINED = date.fromisoformat(os.environ.get("JOINED", "2026-09-27"))  # GitHub account created
+SHIMMER = 3.6        # seconds for the gold shimmer to pass a cell
 
 data = json.load(open(DATA))
 days, stats = data["days"], data["stats"]
@@ -46,7 +54,7 @@ STEP = CELL + GAP
 grid_top = TITLEBAR_H + PAD + MONTH_H
 grid_left = PAD + LABEL_W
 grid_h = 7 * STEP - GAP
-H = grid_top + grid_h + 16 + FOOTER_H
+H = grid_top + grid_h + 26 + FOOTER_H
 
 p = []
 p.append(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H:.0f}" viewBox="0 0 {W} {H:.1f}" '
@@ -76,9 +84,23 @@ for i, d in enumerate(days):
         last_month = dt.month
 
 # cells
+rng = random.Random(27)          # fixed seed: the gold pattern doesn't jump each day
 for i, d in enumerate(days):
     col, row = divmod(i + offset, 7)
     x, y = grid_left + col * STEP, grid_top + row * STEP
+    if date.fromisoformat(d["date"]) < JOINED:
+        base = rng.randint(0, 2)
+        rect = (f'<rect x="{x:.1f}" y="{y:.1f}" width="{CELL:.1f}" height="{CELL:.1f}" rx="2" '
+                f'fill="{GOLDS[base]}"><title>{d["date"]}, before joining GitHub</title>')
+        if STATIC:
+            p.append(rect + "</rect>")
+            continue
+        # brighten to the top gold and settle back; negative begin = lit from the first frame
+        seq = [GOLDS[base]] + GOLDS[base + 1:] + GOLDS[base + 1:-1][::-1] + [GOLDS[base]]
+        delay = col * 0.07 + row * 0.035 + rng.uniform(0, 0.3)
+        p.append(f'{rect}<animate attributeName="fill" values="{";".join(seq)}" dur="{SHIMMER}s" '
+                 f'begin="-{delay:.2f}s" repeatCount="indefinite"/></rect>')
+        continue
     title = f'<title>{d["count"]} on {d["date"]}</title>'
     if STATIC:
         p.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{CELL:.1f}" height="{CELL:.1f}" rx="2" '
@@ -89,8 +111,11 @@ for i, d in enumerate(days):
              f'fill="{LEVELS[d["level"]]}" opacity="0">{title}'
              f'<animate attributeName="opacity" from="0" to="1" begin="{begin:.2f}s" dur="0.4s" fill="freeze"/></rect>')
 
-# legend, bottom right of the grid
+# legend: gold key bottom left, green scale bottom right
 ly = grid_top + grid_h + 14
+p.append(f'<rect x="{grid_left:.1f}" y="{ly - CELL + 2:.1f}" width="{CELL:.1f}" height="{CELL:.1f}" rx="2" fill="{GOLDS[3]}"/>')
+p.append(f'<text x="{grid_left + CELL + 6:.1f}" y="{ly:.1f}" fill="{MUTED}" font-size="10">before I joined GitHub '
+         f'<tspan fill="{GOLD_TEXT}">· joined {JOINED.strftime("%-d %b %Y")}</tspan></text>')
 lx = W - PAD - 5 * (CELL + GAP) - 34
 p.append(f'<text x="{lx - 34:.1f}" y="{ly:.1f}" fill="{MUTED}" font-size="10">Less</text>')
 for i, c in enumerate(LEVELS):
@@ -103,16 +128,19 @@ p.append(f'<line x1="0" y1="{fy:.1f}" x2="{W}" y2="{fy:.1f}" stroke="{FRAME}"/>'
 best = stats["best_day"]
 best_txt = f'{best["count"]} on {date.fromisoformat(best["date"]).strftime("%-d %b")}' if best else "-"
 items = [
-    ("contributions", f'{stats["total"]:,}'),
+    ("contributions", f'{stats["total"]:,} since joining'),
     ("current streak", f'{stats["current_streak"]}d'),
     ("longest streak", f'{stats["longest_streak"]}d'),
     ("best day", best_txt),
 ]
-col_w = (W - PAD * 2) / len(items)
-for i, (k, v) in enumerate(items):
-    x = PAD + i * col_w
+# space items by their text length (13px monospace is ~7.8px a character)
+char_w = 13 * 0.6
+gap = (W - PAD * 2 - sum(len(f"{k} {v}") * char_w for k, v in items)) / (len(items) - 1)
+x = PAD
+for k, v in items:
     p.append(f'<text x="{x:.1f}" y="{fy + 27:.1f}" font-size="13" fill="{MUTED}">{k} '
              f'<tspan fill="{ACCENT}">{v}</tspan></text>')
+    x += len(f"{k} {v}") * char_w + gap
 
 p.append("</svg>")
 with open(OUT, "w") as f:
