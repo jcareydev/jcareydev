@@ -1,0 +1,8 @@
+# local only: original photos, masks, previews and alternatives
+.venv/
+_unused/
+source-photo.*
+source-prepped*.png
+person-mask*.png
+*-preview.png
+.DS_Store

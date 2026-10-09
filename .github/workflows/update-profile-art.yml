@@ -1,0 +1,35 @@
+name: Update contribution heatmap
+
+on:
+  schedule:
+    - cron: "17 6 * * *"   # daily, 06:17 UTC
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["scripts/fetch_contributions.py", "scripts/render_heatmap_svg.py"]
+
+permissions:
+  contents: write
+
+jobs:
+  heatmap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # standard library only: nothing to install
+      - run: python scripts/fetch_contributions.py jcareydev
+      - run: python scripts/render_heatmap_svg.py
+      - name: Commit if changed
+        run: |
+          git add data/contributions.json contrib-heatmap.svg
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Update contribution heatmap [skip ci]"
+            git push
+          fi

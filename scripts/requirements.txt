@@ -1,0 +1,4 @@
+# only needed to rebuild the portrait; the daily heatmap job uses the standard library
+pillow
+numpy
+opencv-python-headless
