@@ -18,8 +18,8 @@ Studying digital marketing at Aston University. I build my own websites and tool
 
 ### `joe@github:~$ ls ~/projects`
 
-<a href="https://josephcarey.com"><img src="card-josephcarey.svg" width="428" alt="josephcarey.com: Joseph Carey's portfolio of marketing, photography, video and web work"></a>
-<a href="https://gren.app"><img src="card-gren.svg" width="428" alt="Gren: calm, plain-text notes in the browser that work offline, read aloud and check UK spelling"></a>
+<a href="https://josephcarey.com"><img src="card-josephcarey.svg" width="416" alt="josephcarey.com: Joseph Carey's portfolio of marketing, photography, video and web work"></a>
+<a href="https://gren.app"><img src="card-gren.svg" width="416" alt="Gren: calm, plain-text notes in the browser that work offline, read aloud and check UK spelling"></a>
 
 <br>
 

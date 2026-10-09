@@ -1,6 +1,6 @@
 """
 Featured project cards in the same terminal style as the rest of the README,
-two to a row (428px each, 860px with the gap). Each is wrapped in a link in
+two to a row (416px each, so both fit GitHub's 846px column). Each is wrapped in a link in
 README.md, so edit PROJECTS here and the links there together.
 
     python scripts/make_project_cards.py
@@ -37,7 +37,7 @@ PROJECTS = [
     },
 ]
 
-W, H = 428, 196
+W, H = 416, 196
 PAD = 20
 TITLEBAR_H = 30
 
