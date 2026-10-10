@@ -1,7 +1,7 @@
 {
  "stats": {
   "user": "jcareydev",
-  "total": 185,
+  "total": 187,
   "active_days": 12,
   "current_streak": 11,
   "longest_streak": 11,
@@ -10,7 +10,7 @@
    "count": 53
   },
   "from": "2025-10-05",
-  "to": "2026-10-09"
+  "to": "2026-10-10"
  },
  "days": [
   {
@@ -1861,7 +1861,12 @@
   {
    "date": "2026-10-09",
    "level": 3,
-   "count": 13
+   "count": 15
+  },
+  {
+   "date": "2026-10-10",
+   "level": 0,
+   "count": 0
   }
  ]
 }
