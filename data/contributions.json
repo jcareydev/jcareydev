@@ -1,16 +1,16 @@
 {
  "stats": {
   "user": "jcareydev",
-  "total": 265,
-  "active_days": 20,
-  "current_streak": 0,
+  "total": 329,
+  "active_days": 24,
+  "current_streak": 6,
   "longest_streak": 14,
   "best_day": {
    "date": "2026-09-30",
-   "count": 53
+   "count": 62
   },
   "from": "2025-10-26",
-  "to": "2026-10-25"
+  "to": "2026-10-26"
  },
  "days": [
   {
@@ -1706,12 +1706,12 @@
   {
    "date": "2026-09-29",
    "level": 1,
-   "count": 1
+   "count": 2
   },
   {
    "date": "2026-09-30",
    "level": 4,
-   "count": 53
+   "count": 62
   },
   {
    "date": "2026-10-01",
@@ -1725,28 +1725,28 @@
   },
   {
    "date": "2026-10-03",
-   "level": 1,
-   "count": 4
+   "level": 2,
+   "count": 9
   },
   {
    "date": "2026-10-04",
-   "level": 1,
-   "count": 4
+   "level": 2,
+   "count": 7
   },
   {
    "date": "2026-10-05",
-   "level": 1,
-   "count": 4
+   "level": 2,
+   "count": 7
   },
   {
    "date": "2026-10-06",
-   "level": 3,
-   "count": 19
+   "level": 4,
+   "count": 26
   },
   {
    "date": "2026-10-07",
    "level": 4,
-   "count": 25
+   "count": 27
   },
   {
    "date": "2026-10-08",
@@ -1760,8 +1760,8 @@
   },
   {
    "date": "2026-10-10",
-   "level": 2,
-   "count": 13
+   "level": 3,
+   "count": 15
   },
   {
    "date": "2026-10-11",
@@ -1825,18 +1825,23 @@
   },
   {
    "date": "2026-10-23",
-   "level": 0,
-   "count": 0
+   "level": 1,
+   "count": 3
   },
   {
    "date": "2026-10-24",
-   "level": 0,
-   "count": 0
+   "level": 3,
+   "count": 15
   },
   {
    "date": "2026-10-25",
-   "level": 0,
-   "count": 0
+   "level": 2,
+   "count": 10
+  },
+  {
+   "date": "2026-10-26",
+   "level": 1,
+   "count": 4
   }
  ]
 }
